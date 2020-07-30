@@ -1,0 +1,63 @@
+
+body{
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1, h2, h3{
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper{
+    margin: 0 auto;
+}
+
+.panel{
+    background-color: lightgrey;
+    margin: 10px auto;
+}
+
+#header{
+    width: 100%;
+    height: 10vh;
+    margin-top: 0;
+}
+
+#camera-buttons{
+
+}
+
+#sol{
+    width: 40px;
+}
+
+#rover-img{
+    width: 100%;
+    height: 38vh;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#camera-buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+#info{
+    width: 100%;
+    height: 10vh;
+}
+
+#carusel{
+    width: 100%;
+    height: 38vh;
+    margin-bottom: 0;
+}
+
+
+
+
+
+
