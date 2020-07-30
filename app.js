@@ -6,6 +6,7 @@ import {
 } from './settings.js'
 
 import {
+    setCameraInState,
     setRoverInState,
     loadPicsFromApi
 } from './script/lib.js'
@@ -16,15 +17,14 @@ import {
 } from './script/dom.js'
 
 
-const roverName = roverObj.curiosity.name
-const sol = '100'
-const selectedCamera = cameraObj.navcam.value
-const pages = 1
-
 const appState = {
     rovers: roverObj,
+    cameras: cameraObj,
+    sol: '40',
+    selectedCamera: "",
     selectedRover: "",
     images: [],
+    pages: 1
 }
 
 // loadPicsFromApi(

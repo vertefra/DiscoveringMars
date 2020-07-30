@@ -1,11 +1,14 @@
+import { renderCarusel } from './dom.js'
+
 const loadPics = (state, data) => {
     const picsObj = data.photos
-    console.log(picsObj)
     const keys = Object.keys(picsObj)
     for (let key of keys){
         state.images.push(picsObj[key])
     }
     if (state.images.length > 0){
+        console.log('render carusel after this')
+        renderCarusel(state, $('#carusel'))
         return {
             success: true,
             message: 'pics are loaded'
@@ -33,6 +36,7 @@ const loadPicsFromApi = async (appState, roverName, sol, camera, pages, api_key)
     ${baseUrl}rovers/${roverName}/photos?sol=${sol}&camera=${camera}&page=${pages}&api_key=${api_key}`
     console.log(url)
     return fetchURL(url, appState, loadPics)
+    
 }
 
 const setRoverInState = (
@@ -45,4 +49,12 @@ const setRoverInState = (
         renderCallBack(DOMElement, appState)
 }
 
-export { loadPicsFromApi, setRoverInState }
+const setCameraInState = (
+    event,
+    appState,) => {
+        const cameraObj =
+        appState.selectedCamera = event.target.id
+        console.log(appState.selectedCamera)
+}
+
+export { loadPicsFromApi, setRoverInState, setCameraInState }
