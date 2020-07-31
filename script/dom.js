@@ -120,16 +120,21 @@ const renderCarusel = (appState, $DOMelement, imgIdx=0) => {
     let currentPic = appState.images[imgIdx]
     let path = ''
     if (appState.images.length===0){
-        path=''
-    } else { 
-        path=currentPic.img_src
-    }
-    renderPicInfo(appState, currentPic, imgIdx)
-    $DOMelement.html(`
-    <div id='pics-container'>
-        <img src='${path}'>
-    </div>
+        $DOMelement.html(`
+        <div id='pics-container'>
+            <h2>No image found at sol ${appState.sol} for ${'this' || appState.selectedCamera}
+            camera. Please, select another camera or another sol</h2>
+        </div>
+        `)
+    } else {
+        path = currentPic.img_src 
+        renderPicInfo(appState, currentPic, imgIdx)
+        $DOMelement.html(`
+        <div id='pics-container'>
+            <img src='${path}'>
+        </div>
     `)
+    }
     
     const $picsContainer = $('#pics-container')
     renderPicsControlButtons(appState, $picsContainer, imgIdx)
