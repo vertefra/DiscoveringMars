@@ -54,7 +54,14 @@ const setCameraInState = (
     appState,) => {
         const cameraObj =
         appState.selectedCamera = event.target.id
-        console.log(appState.selectedCamera)
 }
 
-export { loadPicsFromApi, setRoverInState, setCameraInState }
+const setSolInState = (appState, $DOMelement) => {
+    console.log($DOMelement)
+    $DOMelement.attr('value')
+    $DOMelement.on("change", (event)=>{
+        appState.sol = event.target.value
+    })
+}
+
+export { loadPicsFromApi, setRoverInState, setCameraInState, setSolInState }

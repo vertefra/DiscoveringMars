@@ -1,7 +1,7 @@
 import {
     loadPicsFromApi,
-    setCameraInState, 
-    setRoverInState 
+    setRoverInState, 
+    setSolInState
 } from './lib.js'
 
 import { cameraObj, api_key } from '../settings.js'
@@ -10,31 +10,39 @@ const renderHeader = ($DOMelement, appState) => {
     $DOMelement.html(`
     <header>
         <h1>Exploring Mars</h1>
-        <h2>${appState.selectedRover}</h2>
         <label for="sol">Martian Sol</label>
-        <input type="number" id="sol">
+        <input type="number" id="sol" value="${appState.sol}">
         <button id="curiosity">Curiosity</button>
         <button id="spirit">Spirit</button>
         <button id="opportunity">Opportunity</button>
     </header>
     `)
 
+    setSolInState(appState, $('#sol'))
+    
     // init click events
     $('#curiosity').on("click", (event)=>{
         console.log('click')
         appState.images = []
+        $('#info').empty()
         renderCarusel(appState, $('#carusel'))
         setRoverInState(event, appState, $DOMelement, renderHeader)
         renderRoverPanel($('#rover-img'), appState)
     })
     
     $('#spirit').on("click", (event)=>{
+        appState.images = []
+        $('#info').empty()
+        renderCarusel(appState, $('#carusel'))
         setRoverInState(event, appState, $DOMelement, renderHeader)
         renderRoverPanel($('#rover-img'), appState)
     })
     
     $('#opportunity').on("click", (event)=>{
-        console.log('click')
+        appState.images = []
+        $('#info').empty()
+
+        renderCarusel(appState, $('#carusel'))
         setRoverInState(event, appState, $DOMelement, renderHeader)
         renderRoverPanel($('#rover-img'), appState)
     })
@@ -42,10 +50,13 @@ const renderHeader = ($DOMelement, appState) => {
 
 const renderRoverPanel = ($DOMelement, appState) => {
     if(appState.selectedRover!==''){
+        $('#rover-img').children('#rover-name').remove()
+        const $roverName = $('<h3 id="rover-name">')
+        $roverName.text(appState.selectedRover)
+        $('#rover-img').append($roverName)
         console.log(appState.rovers[appState.selectedRover].img_path)
         $DOMelement.css(
             'background-image',`url("${appState.rovers[appState.selectedRover].img_path}")`)
-        $DOMelement.css('background-size','cover')
         appendCameraButtons(appState, appState.rovers[appState.selectedRover].cameras)
     }
 }
@@ -65,7 +76,10 @@ const appendCameraButtons = (appState, cameraObjList) => {
 
 const initCameraButtons = ($DOMelement, appState) => {
     $DOMelement.on("click", (event)=>{
+        $('#info').empty()
         appState.selectedCamera = event.target.id
+        appState.images = []
+        renderCarusel(appState, $('#carusel'))
         loadRelatedPics(appState)
     })
 }
@@ -103,15 +117,44 @@ const renderPicsControlButtons = (appState, $DOMelement, imgIdx) => {
 }
 
 const renderCarusel = (appState, $DOMelement, imgIdx=0) => {
+    let currentPic = appState.images[imgIdx]
+    let path = ''
+    if (appState.images.length===0){
+        path=''
+    } else { 
+        path=currentPic.img_src
+    }
+    renderPicInfo(appState, currentPic, imgIdx)
     $DOMelement.html(`
     <div id='pics-container'>
-        <img src='${appState.images[imgIdx].img_src}'>
+        <img src='${path}'>
     </div>
     `)
     
-
     const $picsContainer = $('#pics-container')
     renderPicsControlButtons(appState, $picsContainer, imgIdx)
+}
+
+const renderPicInfo = (appState, pic, idx) => {
+    if(pic){
+        const totPics = appState.images.length
+        const $infoPanel = $('#info')
+        $infoPanel.empty()
+        console.log(pic)
+        $infoPanel.html(`
+        <div id="pic-info">
+            <div>
+                <h3>Earth day: ${pic.earth_date}</h3> 
+                <h3>Rover: ${pic.rover.name}</h3>
+            </div>
+            <div>
+                <h3>Camera: ${pic.camera.full_name}</h3>
+                <h3>Pic ${idx+1}/${totPics}</h3>
+            <div>
+        </div> 
+        `)
+    }
+
 }
 
 

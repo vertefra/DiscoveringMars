@@ -1,10 +1,11 @@
-img{
-    width: 100%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+
 body{
     padding: 0;
     margin: 0;
     overflow: hidden;
+    font-family: 'Space Mono', monospace;
 }
 
 h1, h2, h3{
@@ -12,34 +13,92 @@ h1, h2, h3{
     margin: 0;
 }
 
-#wrapper{
-    margin: 0 auto;
+button {
+    background-color: #452C15;
+    border: none;
+    border-radius: 5px;
+    color:#C8A57B;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 3px 3px 2px black;
+    font-size: 12px;
 }
 
+button:active {
+    box-shadow: 1px 1px 1px black;
+}
+
+
+#wrapper{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* GENERAL PANELS CONFIGURATION */
+
 .panel{
-    background-color: lightgrey;
+    background-color: #8F8572;
+    color: #452C15;
     margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+label {
+    color: #C8A57B;
+    font-weight: 900;
+    font-size: 12px;
+}
+
+h1 {
+    font-size:18px;
 }
 
 #header{
-    width: 100%;
-    height: 10vh;
+    width: 90%;
+    height: 8vh;
     margin-top: 0;
 }
 
-#camera-buttons{
+#pic-info {
+    background-color: #C8A57B;
+    display: flex;
+    flex-direction: row;
+}
 
+#pic-info > div {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    align-items: flex-start;
 }
 
 #sol{
     width: 40px;
+    border: none;
+    border-radius: 5px;
+    text-align: right;
 }
 
 #rover-img{
-    width: 100%;
-    height: 38vh;
+    width: 90%;
+    height: 35vh;
+    margin: 0 auto;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    color:white;
+    font-weight: 900;
+    font-size: 18px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #camera-buttons{
@@ -47,32 +106,106 @@ h1, h2, h3{
     flex-direction: column;
 }
 
+#camera-buttons > button {
+    margin: 5px 0;
+}
+
+/* Info Panel */
 #info{
-    width: 100%;
+    width: 90%;
     height: 10vh;
 }
 
+#info h3 {
+    font-size: 12px;
+}
+
 #carusel{
-    width: 100%;
+    width: 90%;
     height: 38vh;
-    margin-bottom: 0;
+    margin-bottom: 10px;
+}
+
+#pics-container{
+    width: 90%;
+    height: 100%;
+    margin: 10px auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pics-container > img{
+    height: 100%;
 }
 
 .control {
     background-color: red;
     position: absolute;
+    background-color: rgba(66, 66, 66, 0.1);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    margin: -15px;
+}
+
+.control:active {
+    background-color:  rgba(66, 66, 66, 0.5);
+    transform: scale(1.1);
+    border: none;
 }
 
 #left-btn {
     left: 0;
-    bottom: 200px;
+    bottom: 50%;
 }
 
 #right-btn {
     right: 0;
-    bottom: 200px;
+    bottom: 50%;
 }
 
+@media (min-width: 710px){
+    body{
+        overflow-y: scroll;
+    }
+    #wrapper{
+        width: 60%;
+        background-color: #C8A57B;
+    }
+    #header-paner{
+        width: 90%;
+    }
+    header > h1{
+        font-size: 30px;
+    }
+    #rover-img{
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    #camera-buttons {
+        margin-left: 20px;
+    }
+    #rover-name {
+        margin-right: 20px;
+    }
+    #pic-info{
+        width: 100%;
+    }
+    
+    #info h3{
+        font-size: 20px;
+    }
+
+    
+
+
+}
 
 
 
